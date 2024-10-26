@@ -1,0 +1,77 @@
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main h1{
+    margin-bottom: 20px;
+}
+
+.container-inputs{
+    display: flex;
+    justify-content: space-between;
+    width: 30rem;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.container-inputs input{
+    text-align: end;
+    border: none;
+    font-size: inherit;
+}
+
+/* Retira as setas para os campos de número (Não funciona para o mozila) */
+.container-inputs input::-webkit-outer-spin-button,
+.container-inputs input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.checkbox{
+    position: relative;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1.5rem;
+    width: 3rem;
+    background-color: rgba(100, 116, 139, 0.377);
+    border-radius: 9999px;
+    transition: all .3s ease;
+}
+
+.checkbox:checked{
+    background-color: var(--color-checkbox-checked);
+}
+
+.checkbox::before{
+    position: absolute;
+    content: "";
+    left: 0.05rem;
+    top: 0.05rem;
+    display: block;
+    height: 1.3rem;
+    width: 1.3rem;
+    cursor: pointer;
+    border: 1px solid rgba(100, 116, 139, 0.527);
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 1);
+    transition: all .3s ease;
+}
+
+.checkbox:checked:before {
+    transform: translateX(100%);
+    border-color: var(--color-checkbox-checked);
+}
+
+.return-arrow{
+    position: absolute;
+    top: 5rem;
+    left: 10rem;
+}
+
+.return-arrow img{
+    width: 40px;
+}
