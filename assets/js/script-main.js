@@ -62,6 +62,7 @@ function shutFlow(){
     clearInterval(interval);
     timeFlow = secondsFlow;
     setUITime();
+    animateLine("shut");
     showStartButton();
     document.querySelector(".button-shut").style.display = "none";
 }

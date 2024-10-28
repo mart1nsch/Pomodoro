@@ -18,3 +18,22 @@ main .button-shut{
 main button:active{
     box-shadow: inset 5px 5px 20px rgb(0, 0, 0, 0.5);
 }
+
+.line-container{
+    width: 35rem;
+    height: 3px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.line{
+    width: 0;
+    height: 2rem;
+    background-color: #000;
+}
+
+@keyframes flow {
+    from { width: 0%; }
+    to { width: 100%; }
+}
