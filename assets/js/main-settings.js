@@ -13,6 +13,7 @@ function createSettings(mainElement){
 
     createReturn(mainElement);
     createLabelsAndInputs(mainElement);
+    createButtons(mainElement);
 }
 
 function createReturn(mainElement){
@@ -78,6 +79,7 @@ function createCheckPauseAutomatic(mainElement){
     inputCheckPauseAutomatic.id = "input-check-pause-automatic";
     inputCheckPauseAutomatic.type = "checkbox";
     inputCheckPauseAutomatic.className = "checkbox";
+    inputCheckPauseAutomatic.checked = automaticPause;
     divCheckPauseAutomatic.appendChild(inputCheckPauseAutomatic);
 }
 
@@ -85,6 +87,21 @@ function createDivInputs(){
     const element = document.createElement("div");
     element.className = "container-inputs";
     return element;
+}
+
+function createButtons(mainElement){
+    const divButtons = document.createElement("div");
+    divButtons.className = "buttons-container";
+    mainElement.appendChild(divButtons);
+
+    const buttonSave = document.createElement("button");
+    buttonSave.className = "button-save";
+    buttonSave.title = "Salvar Alterações";
+    divButtons.appendChild(buttonSave);
+
+    const imgButtonSave = document.createElement("img");
+    imgButtonSave.src = "../img/check-green.png";
+    buttonSave.appendChild(imgButtonSave);
 }
 
 function returnSecondsToMinutes(seconds){

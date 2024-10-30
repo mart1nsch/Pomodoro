@@ -24,6 +24,11 @@ main h1{
     font-size: inherit;
 }
 
+.container-inputs input:focus{
+    outline: none;
+    box-shadow: none;
+}
+
 /* Retira as setas para os campos de número (Não funciona para o mozila) */
 .container-inputs input::-webkit-outer-spin-button,
 .container-inputs input::-webkit-inner-spin-button{
@@ -74,4 +79,21 @@ main h1{
 
 .return-arrow img{
     width: 40px;
+}
+
+.buttons-container{
+    width: 30rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.buttons-container button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.buttons-container button img{
+    width: 30px;
 }

@@ -4,7 +4,7 @@ bodyElement.appendChild(main);
 
 const h1Main = document.createElement("h1");
 h1Main.className = "time";
-h1Main.innerText = "25:00";
+h1Main.innerText = returnSecondsToMinutes(secondsFlow);
 main.appendChild(h1Main);
 
 const lineContainer = document.createElement("div");
@@ -19,6 +19,6 @@ const button = document.createElement("button");
 button.className = "button-start";
 button.innerText = "Iniciar";
 button.addEventListener("click", () => {
-    animateLine("start");
+    animateLine("flow", secondsFlow);
 });
 main.appendChild(button);

@@ -2,6 +2,7 @@
 
 :root{
     --color-checkbox-checked: rgb(71, 69, 219);
+    --color-time-pause: rgb(72, 219, 80);
 }
 
 *{
