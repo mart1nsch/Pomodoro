@@ -27,12 +27,12 @@ function createLinksChild(divElement){
     divElement.appendChild(settings);
 
     const settingsImg = document.createElement("img");
-    settingsImg.src = "./img/settings.png";
+    settingsImg.src = "/assets/img/settings.png";
     settingsImg.alt = "Configurações";
     settings.appendChild(settingsImg);
 
     const linkedinImg = document.createElement("img");
-    linkedinImg.src = "./img/linkedin.png";
+    linkedinImg.src = "/assets/img/linkedin.png";
     linkedinImg.alt = "Ícone Linkedin";
     divElement.appendChild(linkedinImg);
 

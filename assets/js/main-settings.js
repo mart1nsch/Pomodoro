@@ -23,7 +23,7 @@ function createReturn(mainElement){
     mainElement.appendChild(returnArrow);
 
     const returnArrowImg = document.createElement("img");
-    returnArrowImg.src = "./img/return.png";
+    returnArrowImg.src = "/assets/img/return.png";
     returnArrow.appendChild(returnArrowImg);
 }
 
@@ -100,7 +100,7 @@ function createButtons(mainElement){
     divButtons.appendChild(buttonSave);
 
     const imgButtonSave = document.createElement("img");
-    imgButtonSave.src = "./img/check-green.png";
+    imgButtonSave.src = "/assets/img/check-green.png";
     buttonSave.appendChild(imgButtonSave);
 }
 
