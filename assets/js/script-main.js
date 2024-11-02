@@ -1,6 +1,8 @@
 let interval;
-let timeFlow;
+let intervalTime;
+let time;
 let timePause;
+let previousTime;
 
 const buttonStartElement = document.querySelector(".button-start");
 const timeElement = document.querySelector(".time");
@@ -11,8 +13,10 @@ buttonStartElement.addEventListener("click", startFlow);
 function startFlow(){
     showShutButton();
     hideStartButton();
-    timeFlow = secondsFlow;
-    interval = setInterval(deductSecond, 1000);
+    time = secondsFlow;
+    intervalTime = setInterval(controlSeconds, 1000);
+    interval = setInterval(deductSecond, 10);
+    animateLine("flow", secondsFlow);
 }
 
 function showShutButton(){
@@ -42,19 +46,26 @@ function hideStartButton(){
     buttonStartElement.style.display = "none";
 }
 
+function controlSeconds(){
+    previousTime = time;
+    --time;
+}
+
 function deductSecond(){
-    timeFlow -= 1;
-    setUITime(timeFlow);
-    
-    if (timeFlow === 0) {
-        finishFlow();
+    if (previousTime !== time) {
+        setUITime(time);
+        
+        if (time === 0) {
+            finishFlow();
+        }
     }
 }
 
 function shutFlow(){
     clearInterval(interval);
-    timeFlow = secondsFlow;
-    setUITime(timeFlow);
+    clearInterval(intervalTime);
+    time = secondsFlow;
+    setUITime(time);
     animateLine("shut", secondsFlow);
     showStartButton();
     document.querySelector(".button-shut").style.display = "none";
@@ -69,38 +80,53 @@ function showStartButton(){
 
 function finishFlow(){
     clearInterval(interval);
+    clearInterval(intervalTime);
     startPause();
+    addCycle();
+    sendNotification("pause");
 }
 
 function startPause(){
-    const time = document.querySelector(".time");
-    time.style.color = "var(--color-time-pause)";
+    const timeElement = document.querySelector(".time");
+    timeElement.style.color = "var(--color-time-pause)";
 
     const pauseTimeMinutes = returnSecondsToMinutes(secondsPause);
     timeElement.innerText = pauseTimeMinutes;
 
-    timePause = secondsPause;
-    interval = setInterval(deductSecondPause, 1000);
-    animateLine("shut", timePause);
-    animateLine("pause", timePause);
+    time = secondsPause;
+    intervalTime = setInterval(controlSeconds, 1000);
+    interval = setInterval(deductSecondPause, 10);
+    animateLine("shut", secondsPause);
+    animateLine("pause", secondsPause);
 }
 
 function deductSecondPause(){
-    timePause -= 1;
-    setUITime(timePause);
-    
-    if (timePause === 0) {
-        clearInterval(interval);
-        const timeElement = document.querySelector(".time");
-        timeElement.style.color = "black";
-        restartFlow();
+    if (previousTime !== time) {
+        setUITime(time);
+        
+        if (time === 0) {
+            clearInterval(interval);
+            clearInterval(intervalTime);
+            const timeElement = document.querySelector(".time");
+            timeElement.style.color = "black";
+            restartFlow();
+        }
     }
 }
 
 function restartFlow(){
     h1Main.innerText = returnSecondsToMinutes(secondsFlow);
-    timeFlow = secondsFlow;
-    interval = setInterval(deductSecond, 1000);
+    time = secondsFlow;
+    intervalTime = setInterval(controlSeconds, 1000);
+    interval = setInterval(deductSecond, 10);
     animateLine("shut", secondsFlow);
     animateLine("flow", secondsFlow);
+    sendNotification("flow");
+}
+
+function addCycle(){
+    ++cyclesToday;
+
+    const cycleTodayElement = document.querySelector("#cycle-today");
+    cycleTodayElement.innerText = cyclesToday;
 }

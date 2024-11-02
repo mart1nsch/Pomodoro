@@ -1,4 +1,4 @@
-main h1{
+.time{
     font-size: 100px;
 }
 
@@ -41,4 +41,29 @@ main button:active{
 @keyframes pause {
     from { width: 0%; }
     to { width: 100%; }
+}
+
+.container-ranking{
+    position: relative;
+    top: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-ranking h1{
+    font-size: 38px;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+}
+
+.container-cycles{
+    width: 12rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 22px;
+    border-bottom: 1px solid black;
 }

@@ -18,7 +18,29 @@ lineContainer.appendChild(line);
 const button = document.createElement("button");
 button.className = "button-start";
 button.innerText = "Iniciar";
-button.addEventListener("click", () => {
-    animateLine("flow", secondsFlow);
-});
 main.appendChild(button);
+
+function createRankingInfo(){
+    const divRanking = document.createElement("div");
+    divRanking.className = "container-ranking";
+    main.appendChild(divRanking);
+
+    const h1Ranking = document.createElement("h1");
+    h1Ranking.innerText = "Estatísticas";
+    divRanking.appendChild(h1Ranking);
+
+    const cyclesTodayContainer = document.createElement("div");
+    cyclesTodayContainer.className = "container-cycles";
+    divRanking.appendChild(cyclesTodayContainer);
+
+    const cyclesTodayTitle = document.createElement("span");
+    cyclesTodayTitle.innerText = "Ciclos Hoje: "
+    cyclesTodayContainer.appendChild(cyclesTodayTitle);
+
+    const cyclesTodayNumber = document.createElement("span");
+    cyclesTodayNumber.id = "cycle-today";
+    cyclesTodayNumber.innerText = cyclesToday;
+    cyclesTodayContainer.appendChild(cyclesTodayNumber);
+}
+
+createRankingInfo();
