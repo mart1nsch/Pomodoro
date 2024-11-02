@@ -18,12 +18,12 @@ function createSettings(mainElement){
 
 function createReturn(mainElement){
     const returnArrow = document.createElement("a");
-    returnArrow.href = "../html/index.html";
+    returnArrow.href = "./index.html";
     returnArrow.className = "return-arrow";
     mainElement.appendChild(returnArrow);
 
     const returnArrowImg = document.createElement("img");
-    returnArrowImg.src = "../img/return.png";
+    returnArrowImg.src = "./img/return.png";
     returnArrow.appendChild(returnArrowImg);
 }
 
@@ -100,7 +100,7 @@ function createButtons(mainElement){
     divButtons.appendChild(buttonSave);
 
     const imgButtonSave = document.createElement("img");
-    imgButtonSave.src = "../img/check-green.png";
+    imgButtonSave.src = "./img/check-green.png";
     buttonSave.appendChild(imgButtonSave);
 }
 

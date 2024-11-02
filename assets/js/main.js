@@ -43,4 +43,4 @@ function createRankingInfo(){
     cyclesTodayContainer.appendChild(cyclesTodayNumber);
 }
 
-createRankingInfo();
+//createRankingInfo();
