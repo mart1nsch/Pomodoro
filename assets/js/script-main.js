@@ -3,6 +3,9 @@ let intervalTime;
 let time;
 let timePause;
 let previousTime;
+let secondsFinish;
+let secondsNow;
+let flowPause = "flow";
 
 const buttonStartElement = document.querySelector(".button-start");
 const timeElement = document.querySelector(".time");
@@ -13,10 +16,14 @@ buttonStartElement.addEventListener("click", startFlow);
 function startFlow(){
     showShutButton();
     hideStartButton();
-    localStorage.setItem("segundoInicio", Math.floor(Date.now() / 1000));
+    flowPause = "flow";
+
+    const timeStart = Math.floor(Date.now() / 1000);
+    secondsFinish = timeStart + secondsFlow;
+    secondsNow = timeStart;
+    previousTime = secondsNow;
     time = secondsFlow;
-    intervalTime = setInterval(controlSeconds, 1000);
-    interval = setInterval(deductSecond, 10);
+    intervalTime = setInterval(controlSeconds, 10);
     animateLine("flow", secondsFlow);
 }
 
@@ -48,17 +55,23 @@ function hideStartButton(){
 }
 
 function controlSeconds(){
-    const nowSecond = Math.floor(Date.now() / 1000);
-    previousTime = time;
-    time -= (nowSecond - localStorage.getItem("segundoInicio"));
+    secondsNow = Math.floor(Date.now() / 1000);
+
+    if (previousTime !== secondsNow) {
+        previousTime = secondsNow;
+        time = (secondsFinish - secondsNow);
+        deductSecond();
+    }
 }
 
 function deductSecond(){
-    if (previousTime !== time) {
-        setUITime(time);
-        
-        if (time === 0) {
+    setUITime(time);
+    
+    if (time === 0) {
+        if (flowPause === "flow") {
             finishFlow();
+        } else if (flowPause === "pause") {
+            finishPause();
         }
     }
 }
@@ -81,10 +94,9 @@ function showStartButton(){
 }
 
 function finishFlow(){
-    clearInterval(interval);
     clearInterval(intervalTime);
     startPause();
-    addCycle();
+    //addCycle();
     sendNotification("pause");
 }
 
@@ -95,32 +107,37 @@ function startPause(){
     const pauseTimeMinutes = returnSecondsToMinutes(secondsPause);
     timeElement.innerText = pauseTimeMinutes;
 
+    flowPause = "pause";
+
+    const timeStart = Math.floor(Date.now() / 1000);
+    secondsFinish = timeStart + secondsPause;
+    secondsNow = timeStart;
+    previousTime = secondsNow;
     time = secondsPause;
-    intervalTime = setInterval(controlSeconds, 1000);
-    interval = setInterval(deductSecondPause, 10);
+    intervalTime = setInterval(controlSeconds, 10);
     animateLine("shut", secondsPause);
     animateLine("pause", secondsPause);
 }
 
-function deductSecondPause(){
-    if (previousTime !== time) {
-        setUITime(time);
-        
-        if (time === 0) {
-            clearInterval(interval);
-            clearInterval(intervalTime);
-            const timeElement = document.querySelector(".time");
-            timeElement.style.color = "black";
-            restartFlow();
-        }
-    }
+function finishPause() {
+    clearInterval(intervalTime);
+
+    const timeElement = document.querySelector(".time");
+    timeElement.style.color = "black";
+
+    restartFlow();
 }
 
 function restartFlow(){
     h1Main.innerText = returnSecondsToMinutes(secondsFlow);
+    flowPause = "flow";
+    
+    const timeStart = Math.floor(Date.now() / 1000);
+    secondsFinish = timeStart + secondsFlow;
+    secondsNow = timeStart;
+    previousTime = secondsNow;
     time = secondsFlow;
-    intervalTime = setInterval(controlSeconds, 1000);
-    interval = setInterval(deductSecond, 10);
+    intervalTime = setInterval(controlSeconds, 10);
     animateLine("shut", secondsFlow);
     animateLine("flow", secondsFlow);
     sendNotification("flow");
