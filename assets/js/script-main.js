@@ -13,6 +13,7 @@ buttonStartElement.addEventListener("click", startFlow);
 function startFlow(){
     showShutButton();
     hideStartButton();
+    localStorage.setItem("segundoInicio", Math.floor(Date.now() / 1000));
     time = secondsFlow;
     intervalTime = setInterval(controlSeconds, 1000);
     interval = setInterval(deductSecond, 10);
@@ -47,8 +48,9 @@ function hideStartButton(){
 }
 
 function controlSeconds(){
+    const nowSecond = Math.floor(Date.now() / 1000);
     previousTime = time;
-    --time;
+    time -= (nowSecond - localStorage.getItem("segundoInicio"));
 }
 
 function deductSecond(){
