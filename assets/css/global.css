@@ -48,11 +48,15 @@ header img{
     margin: 0 5px;
 }
 
-main{
+main, .container-timer, .container-settings{
     margin: 0 auto;
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+a{
+    cursor: pointer;
 }

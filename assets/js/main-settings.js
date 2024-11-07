@@ -1,41 +1,37 @@
-function createMain(){
-    const bodyElement = document.querySelector("body");
-    const main = document.createElement("main");
-    bodyElement.appendChild(main);
-
-    createSettings(main);
-}
-
 function createSettings(mainElement){
+    const divSettings = document.createElement("div");
+    divSettings.setAttribute("class", "container-settings");
+    mainElement.appendChild(divSettings);
+
     const h1 = document.createElement("h1");
     h1.innerText = "Configurações"
-    mainElement.appendChild(h1);
+    divSettings.appendChild(h1);
 
-    createReturn(mainElement);
-    createLabelsAndInputs(mainElement);
-    createButtons(mainElement);
+    createReturn(divSettings);
+    createLabelsAndInputs(divSettings);
+    createButtons(divSettings);
 }
 
-function createReturn(mainElement){
+function createReturn(divElement){
     const returnArrow = document.createElement("a");
-    returnArrow.href = "./index.html";
+    returnArrow.addEventListener("click", returnSettings);
     returnArrow.className = "return-arrow";
-    mainElement.appendChild(returnArrow);
+    divElement.appendChild(returnArrow);
 
     const returnArrowImg = document.createElement("img");
     returnArrowImg.src = "./assets/img/return.png";
     returnArrow.appendChild(returnArrowImg);
 }
 
-function createLabelsAndInputs(mainElement){
-    createTime(mainElement);
-    createPause(mainElement);
-    createCheckPauseAutomatic(mainElement);
+function createLabelsAndInputs(divElement){
+    createTime(divElement);
+    createPause(divElement);
+    createCheckPauseAutomatic(divElement);
 }
 
-function createTime(mainElement){
+function createTime(divElement){
     const divTime = createDivInputs();
-    mainElement.appendChild(divTime);
+    divElement.appendChild(divTime);
 
     const labelTime = document.createElement("label");
     labelTime.innerText = "Tempo de Flow: ";
@@ -46,13 +42,13 @@ function createTime(mainElement){
     inputTime.type = "number";
     inputTime.max = 60;
     inputTime.min = 5;
-    inputTime.value = returnSecondsToMinutes(secondsFlow);
+    inputTime.value = returnMinutes(secondsFlow);
     divTime.appendChild(inputTime);
 }
 
-function createPause(mainElement){
+function createPause(divElement){
     const divPause = createDivInputs();
-    mainElement.appendChild(divPause);
+    divElement.appendChild(divPause);
 
     const labelPause = document.createElement("label");
     labelPause.innerText = "Tempo de Pausa: ";
@@ -63,13 +59,13 @@ function createPause(mainElement){
     inputPause.type = "number";
     inputPause.max = 60;
     inputPause.min = 5;
-    inputPause.value = returnSecondsToMinutes(secondsPause);
+    inputPause.value = returnMinutes(secondsPause);
     divPause.appendChild(inputPause);
 }
 
-function createCheckPauseAutomatic(mainElement){
+function createCheckPauseAutomatic(divElement){
     const divCheckPauseAutomatic = createDivInputs();
-    mainElement.appendChild(divCheckPauseAutomatic);
+    divElement.appendChild(divCheckPauseAutomatic);
 
     const labelCheckPauseAutomatic = document.createElement("label");
     labelCheckPauseAutomatic.innerText = "Fazer pausa automática? ";
@@ -89,10 +85,10 @@ function createDivInputs(){
     return element;
 }
 
-function createButtons(mainElement){
+function createButtons(divElement){
     const divButtons = document.createElement("div");
     divButtons.className = "buttons-container";
-    mainElement.appendChild(divButtons);
+    divElement.appendChild(divButtons);
 
     const buttonSave = document.createElement("button");
     buttonSave.className = "button-save";
@@ -104,8 +100,8 @@ function createButtons(mainElement){
     buttonSave.appendChild(imgButtonSave);
 }
 
-function returnSecondsToMinutes(seconds){
+function returnMinutes(seconds){
     return Math.floor((seconds / 60));
 }
 
-createMain();
+createSettings(document.querySelector("main"));

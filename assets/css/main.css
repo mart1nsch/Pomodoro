@@ -2,7 +2,7 @@
     font-size: 100px;
 }
 
-main button{
+.container-timer button{
     width: 8rem;
     height: 2rem;
     border-radius: 7px;
@@ -10,12 +10,12 @@ main button{
     cursor: pointer;
 }
 
-main .button-shut{
+.container-timer .button-shut{
     background-color: red;
     color: white;
 }
 
-main button:active{
+.container-timer button:active{
     box-shadow: inset 5px 5px 20px rgb(0, 0, 0, 0.5);
 }
 

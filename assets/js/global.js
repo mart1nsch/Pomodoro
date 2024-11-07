@@ -1,7 +1,7 @@
-let secondsFlow = 1500;
-let secondsPause = 120;
+let secondsFlow;
+let secondsPause;
 let secondsSpecialPause = 300;
-let automaticPause = true;
+let automaticPause;
 let cyclesToday = 0;
 
 function addZeroLeft(number){
@@ -57,3 +57,31 @@ function assemblyMessage(type){
 
     return message;
 }
+
+function showSettings(){
+    const divSettingsElement = document.querySelector(".container-settings");
+    divSettingsElement.style.display = "flex";
+
+    const divTimerElement = document.querySelector(".container-timer");
+    divTimerElement.style.display = "none";
+}
+
+function returnSettings(){
+    const divSettingsElement = document.querySelector(".container-settings");
+    divSettingsElement.style.display = "none";
+
+    const divTimerElement = document.querySelector(".container-timer");
+    divTimerElement.style.display = "flex";
+}
+
+function getLocalStorageData(){
+    secondsFlow = localStorage.getItem("secondsFlow");
+    secondsPause = localStorage.getItem("secondsPause");
+    automaticPause = localStorage.getItem("automaticPause");
+
+    secondsFlow = secondsFlow ? secondsFlow : 1500;
+    secondsPause = secondsPause ? secondsPause : 120;
+    automaticPause = automaticPause ? automaticPause : true;
+}
+
+getLocalStorageData();

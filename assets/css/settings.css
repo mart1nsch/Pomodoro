@@ -1,12 +1,16 @@
-main{
+.container-settings{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-main h1{
+.container-settings h1{
     margin-bottom: 20px;
+}
+
+.container-settings{
+    display: none;
 }
 
 .container-inputs{

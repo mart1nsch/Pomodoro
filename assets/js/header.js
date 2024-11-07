@@ -23,7 +23,8 @@ function createLinks(headerElement){
 
 function createLinksChild(divElement){
     const settings = document.createElement("a");
-    settings.href = "./settings.html";
+    settings.addEventListener("click", showSettings);
+    settings.setAttribute("title", "Configurações");
     divElement.appendChild(settings);
 
     const settingsImg = document.createElement("img");

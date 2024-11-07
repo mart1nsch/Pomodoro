@@ -6,14 +6,11 @@ let previousTime;
 let secondsFinish;
 let secondsNow;
 let flowPause = "flow";
+let seconds = 0;
 
-const buttonStartElement = document.querySelector(".button-start");
 const timeElement = document.querySelector(".time");
-const mainElement = document.querySelector("main");
 
-buttonStartElement.addEventListener("click", startFlow);
-
-function startFlow(){
+/*function startFlow(){
     showShutButton();
     hideStartButton();
     flowPause = "flow";
@@ -25,20 +22,63 @@ function startFlow(){
     time = secondsFlow;
     intervalTime = setInterval(controlSeconds, 10);
     animateLine("flow", secondsFlow);
+}*/
+
+document.addEventListener("click", function(e){
+    const element = e.target;
+
+    if (element.className === "button-start") {
+        startFlow();
+    }
+});
+
+function startFlow(){
+    showShutButton();
+    hideStartButton();
+    flowPause = "flow";
+
+    seconds = seconds ? seconds : secondsFlow;
+    const h1MainElement = document.querySelector(".time");
+
+    interval = setInterval(function(){
+        seconds--;
+        const timer = createDateFromMiliSeconds(seconds * 1000);
+        h1MainElement.innerText = timer;
+        if (seconds === 0) {
+            clearInterval(interval);
+        }
+    }, 1000);
+    animateLine("flow", secondsFlow);
+}
+
+function createDateFromMiliSeconds(miliSeconds){
+    const date = new Date(miliSeconds);
+    const dateFormated = date.toLocaleTimeString("pt-BR", {
+        hour12: false,
+        timeZone: "UTC"
+    });
+    return dateFormated.substring(3);
 }
 
 function showShutButton(){
     const shutElementExist = returnShutElement();
 
     if (!shutElementExist) {
+        const divTimeElement = document.querySelector(".container-timer");
+
         const shutElement = document.createElement("button");
         shutElement.className = "button-shut";
         shutElement.innerText = "Encerrar";
-        mainElement.appendChild(shutElement);
+        divTimeElement.appendChild(shutElement);
         addEventShut(shutElement);
     } else {
         shutElementExist.style.display = "block";
     }
+}
+
+function hideStartButton(){
+    const buttonStartElement = document.querySelector(".button-start");
+    buttonStartElement.style.display = "none";
 }
 
 function returnShutElement(){
@@ -48,10 +88,6 @@ function returnShutElement(){
 
 function addEventShut(element){
     element.addEventListener("click", shutFlow);
-}
-
-function hideStartButton(){
-    buttonStartElement.style.display = "none";
 }
 
 function controlSeconds(){
