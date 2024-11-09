@@ -1,54 +1,101 @@
 let interval;
-let intervalTime;
-let time;
-let timePause;
-let previousTime;
-let secondsFinish;
-let secondsNow;
-let flowPause = "flow";
 let seconds = 0;
 
 const timeElement = document.querySelector(".time");
-
-/*function startFlow(){
-    showShutButton();
-    hideStartButton();
-    flowPause = "flow";
-
-    const timeStart = Math.floor(Date.now() / 1000);
-    secondsFinish = timeStart + secondsFlow;
-    secondsNow = timeStart;
-    previousTime = secondsNow;
-    time = secondsFlow;
-    intervalTime = setInterval(controlSeconds, 10);
-    animateLine("flow", secondsFlow);
-}*/
 
 document.addEventListener("click", function(e){
     const element = e.target;
 
     if (element.className === "button-start") {
         startFlow();
+    } else if (element.className === "button-pause") {
+        startPause();
+    } else if (element.className === "button-shut") {
+        shutFlow();
     }
 });
 
 function startFlow(){
+    timeElement.style.color = "black";
+    hideButton(document.querySelector(".button-start"));
     showShutButton();
-    hideStartButton();
-    flowPause = "flow";
 
     seconds = seconds ? seconds : secondsFlow;
-    const h1MainElement = document.querySelector(".time");
+
+    const timer = createDateFromMiliSeconds(seconds * 1000);
+    timeElement.innerText = timer.replace(":", " : ");
+
+    const lineContainerElement = document.querySelector(".line-container");
+    const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsFlow;
+    
+    animateLine("shut");
 
     interval = setInterval(function(){
         seconds--;
         const timer = createDateFromMiliSeconds(seconds * 1000);
-        h1MainElement.innerText = timer;
+        timeElement.innerText = timer.replace(":", " : ");
+        animateLine("flow", widthLine);
         if (seconds === 0) {
+            sendNotification("pause");
             clearInterval(interval);
+            if (automaticPause) {
+                setTimeout(function(){
+                    startPause();
+                }, 1000);
+            } else {
+                showPauseButton();
+            }
         }
     }, 1000);
-    animateLine("flow", secondsFlow);
+}
+
+function startPause(){
+    timeElement.style.color = "var(--color-time-pause)";
+    hideButton(document.querySelector(".button-pause"));
+    hideButton(document.querySelector(".button-shut"));
+
+    seconds = seconds ? seconds : secondsPause;
+
+    const timer = createDateFromMiliSeconds(seconds * 1000);
+    timeElement.innerText = timer.replace(":", " : ");
+
+    const lineContainerElement = document.querySelector(".line-container");
+    const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsPause;
+
+    animateLine("shut");
+    
+    interval = setInterval(function(){
+        seconds--;
+        const timer = createDateFromMiliSeconds(seconds * 1000);
+        timeElement.innerText = timer.replace(":", " : ");
+        animateLine("pause", widthLine);
+        if (seconds === 0) {
+            sendNotification("flow");
+            clearInterval(interval);
+            if (automaticPause) {
+                setTimeout(function(){
+                    startFlow();
+                }, 1000);
+            } else {
+                showButton(document.querySelector(".button-start"));
+            }
+        }
+    }, 1000);
+}
+
+function shutFlow(){
+    timeElement.style.color = "black";
+    clearInterval(interval);
+    animateLine("shut");
+
+    showButton(document.querySelector(".button-start"));
+    hideButton(document.querySelector(".button-pause"));
+    hideButton(document.querySelector(".button-shut"));
+
+    const timer = createDateFromMiliSeconds(secondsFlow * 1000);
+    timeElement.innerText = timer.replace(":", " : ");
+
+    seconds = 0;
 }
 
 function createDateFromMiliSeconds(miliSeconds){
@@ -60,128 +107,49 @@ function createDateFromMiliSeconds(miliSeconds){
     return dateFormated.substring(3);
 }
 
+function hideButton(button){
+    if (button) {
+        button.style.display = "none";
+    }
+}
+
 function showShutButton(){
-    const shutElementExist = returnShutElement();
+    const shutElementExist = returnButtonElement(".button-shut");
 
     if (!shutElementExist) {
-        const divTimeElement = document.querySelector(".container-timer");
+        const divTimeElement = document.querySelector(".container-timer-buttons");
 
         const shutElement = document.createElement("button");
         shutElement.className = "button-shut";
         shutElement.innerText = "Encerrar";
+        shutElement.setAttribute("title", "Encerrar Pomodoro");
         divTimeElement.appendChild(shutElement);
-        addEventShut(shutElement);
     } else {
         shutElementExist.style.display = "block";
     }
 }
 
-function hideStartButton(){
-    const buttonStartElement = document.querySelector(".button-start");
-    buttonStartElement.style.display = "none";
+function showPauseButton(){
+    const pauseElementExist = returnButtonElement(".button-pause");
+
+    if (!pauseElementExist) {
+        const divTimeElement = document.querySelector(".container-timer-buttons");
+
+        const pauseElement = document.createElement("button");
+        pauseElement.className = "button-pause";
+        pauseElement.innerText = "Fazer Pausa";
+        pauseElement.setAttribute("title", "Fazer Pausa Pomodoro");
+        divTimeElement.appendChild(pauseElement);
+    } else {
+        pauseElementExist.style.display = "block";
+    }
 }
 
-function returnShutElement(){
-    const shutElement = document.querySelector(".button-shut");
+function returnButtonElement(className){
+    const shutElement = document.querySelector(className);
     return shutElement;
 }
 
-function addEventShut(element){
-    element.addEventListener("click", shutFlow);
-}
-
-function controlSeconds(){
-    secondsNow = Math.floor(Date.now() / 1000);
-
-    if (previousTime !== secondsNow) {
-        previousTime = secondsNow;
-        time = (secondsFinish - secondsNow);
-        deductSecond();
-    }
-}
-
-function deductSecond(){
-    setUITime(time);
-    
-    if (time === 0) {
-        if (flowPause === "flow") {
-            finishFlow();
-        } else if (flowPause === "pause") {
-            finishPause();
-        }
-    }
-}
-
-function shutFlow(){
-    clearInterval(interval);
-    clearInterval(intervalTime);
-    time = secondsFlow;
-    setUITime(time);
-    animateLine("shut", secondsFlow);
-    showStartButton();
-    document.querySelector(".button-shut").style.display = "none";
-
-    const timeElement = document.querySelector(".time");
-    timeElement.style.color = "black";
-}
-
-function showStartButton(){
-    buttonStartElement.style.display = "block";
-}
-
-function finishFlow(){
-    clearInterval(intervalTime);
-    startPause();
-    //addCycle();
-    sendNotification("pause");
-}
-
-function startPause(){
-    const timeElement = document.querySelector(".time");
-    timeElement.style.color = "var(--color-time-pause)";
-
-    const pauseTimeMinutes = returnSecondsToMinutes(secondsPause);
-    timeElement.innerText = pauseTimeMinutes;
-
-    flowPause = "pause";
-
-    const timeStart = Math.floor(Date.now() / 1000);
-    secondsFinish = timeStart + secondsPause;
-    secondsNow = timeStart;
-    previousTime = secondsNow;
-    time = secondsPause;
-    intervalTime = setInterval(controlSeconds, 10);
-    animateLine("shut", secondsPause);
-    animateLine("pause", secondsPause);
-}
-
-function finishPause() {
-    clearInterval(intervalTime);
-
-    const timeElement = document.querySelector(".time");
-    timeElement.style.color = "black";
-
-    restartFlow();
-}
-
-function restartFlow(){
-    h1Main.innerText = returnSecondsToMinutes(secondsFlow);
-    flowPause = "flow";
-    
-    const timeStart = Math.floor(Date.now() / 1000);
-    secondsFinish = timeStart + secondsFlow;
-    secondsNow = timeStart;
-    previousTime = secondsNow;
-    time = secondsFlow;
-    intervalTime = setInterval(controlSeconds, 10);
-    animateLine("shut", secondsFlow);
-    animateLine("flow", secondsFlow);
-    sendNotification("flow");
-}
-
-function addCycle(){
-    ++cyclesToday;
-
-    const cycleTodayElement = document.querySelector("#cycle-today");
-    cycleTodayElement.innerText = cyclesToday;
+function showButton(button){
+    button.style.display = "block";
 }

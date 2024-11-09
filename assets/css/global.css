@@ -3,6 +3,7 @@
 :root{
     --color-checkbox-checked: rgb(71, 69, 219);
     --color-time-pause: rgb(72, 219, 80);
+    --color-green: rgb(57, 190, 57);
 }
 
 *{

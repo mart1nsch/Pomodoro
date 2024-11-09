@@ -43,7 +43,8 @@ function saveSettings(){
 
     const h1MainElement = document.querySelector(".time");
     h1MainElement.innerText = returnSecondsToMinutes(secondsFlow);
-    console.log(returnSecondsToMinutes(secondsFlow));
+    
+    messageControl("confirmation", "Alterações salvas com Sucesso!");
 }
 
 const saveSettingsButton = document.querySelector(".button-save");

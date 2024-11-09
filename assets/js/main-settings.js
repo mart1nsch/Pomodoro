@@ -16,6 +16,7 @@ function createReturn(divElement){
     const returnArrow = document.createElement("a");
     returnArrow.addEventListener("click", returnSettings);
     returnArrow.className = "return-arrow";
+    returnArrow.setAttribute("title", "Voltar a tela do Pomodoro");
     divElement.appendChild(returnArrow);
 
     const returnArrowImg = document.createElement("img");
@@ -90,14 +91,22 @@ function createButtons(divElement){
     divButtons.className = "buttons-container";
     divElement.appendChild(divButtons);
 
+    const divButtonSave = document.createElement("div");
+    divButtonSave.setAttribute("class", "container-button-save");
+    divButtons.appendChild(divButtonSave);
+
     const buttonSave = document.createElement("button");
     buttonSave.className = "button-save";
     buttonSave.title = "Salvar Alterações";
-    divButtons.appendChild(buttonSave);
+    divButtonSave.appendChild(buttonSave);
 
     const imgButtonSave = document.createElement("img");
     imgButtonSave.src = "./assets/img/check-green.png";
     buttonSave.appendChild(imgButtonSave);
+
+    const spanButtonSave = document.createElement("span");
+    spanButtonSave.innerText = "Salvar Alterações";
+    buttonSave.appendChild(spanButtonSave);
 }
 
 function returnMinutes(seconds){

@@ -16,13 +16,14 @@
 .container-inputs{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 30rem;
     font-size: 20px;
     border-bottom: 1px solid black;
     margin-bottom: 10px;
 }
 
-.container-inputs input{
+#input-time, #input-pause{
     text-align: end;
     border: none;
     font-size: inherit;
@@ -40,39 +41,23 @@
 }
 
 .checkbox{
-    position: relative;
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
-    height: 1.5rem;
-    width: 3rem;
-    background-color: rgba(100, 116, 139, 0.377);
-    border-radius: 9999px;
-    transition: all .3s ease;
+    height: 1.3rem;
+    width: 1.3rem;
+    background-color: transparent;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .checkbox:checked{
     background-color: var(--color-checkbox-checked);
-}
-
-.checkbox::before{
-    position: absolute;
-    content: "";
-    left: 0.05rem;
-    top: 0.05rem;
-    display: block;
-    height: 1.3rem;
-    width: 1.3rem;
-    cursor: pointer;
-    border: 1px solid rgba(100, 116, 139, 0.527);
-    border-radius: 9999px;
-    background-color: rgba(255, 255, 255, 1);
-    transition: all .3s ease;
-}
-
-.checkbox:checked:before {
-    transform: translateX(100%);
-    border-color: var(--color-checkbox-checked);
+    border: none;
+    background-image: url("../img/check.png");
+    background-size: cover;
 }
 
 .return-arrow{
@@ -92,12 +77,24 @@
     align-items: center;
 }
 
-.buttons-container button{
-    background-color: transparent;
+.container-button-save button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 3px;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    background-color: var(--color-green);
     border: none;
     cursor: pointer;
 }
 
-.buttons-container button img{
+.container-button-save button:active{
+    box-shadow: inset 2px 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.container-button-save button img{
     width: 30px;
 }

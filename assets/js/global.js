@@ -8,13 +8,13 @@ function addZeroLeft(number){
     return number >= 10 ? number : `0${number}`;
 }
 
-function animateLine(type, seconds){
+function animateLine(type, width){
     const line = document.querySelector(".line");
 
     if (type === "flow" || type === "pause") {
-        line.style.animation = `linear ${seconds}s ${type}`;
+        line.style.width = `${Number(line.getBoundingClientRect().width) + width}px`;
     } else {
-        line.style.animation = "";
+        line.style.width = 0;
     }
 }
 
@@ -22,16 +22,11 @@ function returnSecondsToMinutes(number){
     const minutesLeft = addZeroLeft(Math.floor((number / 60)));
     const secondsLeft = addZeroLeft(number - (minutesLeft * 60));
 
-    return `${minutesLeft}:${secondsLeft}`;
+    return `${minutesLeft} : ${secondsLeft}`;
 }
 
 function returnMinutesToSeconds(number){
     return (number * 60);
-}
-
-function setUITime(time){
-    const timeMinutes = returnSecondsToMinutes(time);
-    timeElement.innerText = timeMinutes;
 }
 
 function sendNotification(type){
@@ -41,21 +36,23 @@ function sendNotification(type){
         if (message) {
             const notification = new Notification("Pomodoro Clock", { body: message });
         }
-    } else if(Notification.permission === "default") {
-        Notification.requestPermission();
     }
 }
 
 function assemblyMessage(type){
-    let message;
-
-    if (type === "pause") {
-        message = `Flow concluído! Hora da pausa de ${returnSecondsToMinutes(secondsPause)} minutos!`;
-    } else if (type === "flow") {
-        message = `Voltando ao Flow de ${returnSecondsToMinutes(secondsFlow)} minutos!`;
+    if (automaticPause) {
+        if (type === "pause") {
+            return `Flow concluído! Hora da pausa de ${secondsPause / 60} minuto(s)!`;
+        } else if (type === "flow") {
+            return `Voltando ao Flow de ${secondsFlow / 60} minuto(s)!`;
+        }
+    } else {
+        if (type === "pause") {
+            return `Flow concluído! Faça sua pausa de ${secondsPause / 60} minuto(s)!`;
+        } else if (type === "flow") {
+            return `Pausa concluída, volte ao Flow de ${secondsFlow / 60} minuto(s)!`;
+        }
     }
-
-    return message;
 }
 
 function showSettings(){
@@ -77,11 +74,17 @@ function returnSettings(){
 function getLocalStorageData(){
     secondsFlow = localStorage.getItem("secondsFlow");
     secondsPause = localStorage.getItem("secondsPause");
-    automaticPause = localStorage.getItem("automaticPause");
+    automaticPause = JSON.parse(localStorage.getItem("automaticPause"));
 
     secondsFlow = secondsFlow ? secondsFlow : 1500;
     secondsPause = secondsPause ? secondsPause : 120;
-    automaticPause = automaticPause ? automaticPause : true;
+}
+
+function getPermissionNotifications(){
+    if (Notification.permission === "default") {
+        Notification.requestPermission();
+    }
 }
 
 getLocalStorageData();
+getPermissionNotifications();

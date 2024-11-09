@@ -20,10 +20,15 @@ function createMain(){
     line.className = "line";
     lineContainer.appendChild(line);
 
+    const divButtons = document.createElement("div");
+    divButtons.setAttribute("class", "container-timer-buttons");
+    divTimer.appendChild(divButtons);
+
     const button = document.createElement("button");
     button.className = "button-start";
     button.innerText = "Iniciar";
-    divTimer.appendChild(button);
+    button.setAttribute("title", "Iniciar Pomodoro");
+    divButtons.appendChild(button);
 }
 
 function createRankingInfo(){
