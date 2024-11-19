@@ -29,6 +29,11 @@ function createMain(){
     button.innerText = "Iniciar";
     button.setAttribute("title", "Iniciar Pomodoro");
     divButtons.appendChild(button);
+
+    const audio = document.createElement(`audio`);
+    audio.setAttribute(`id`, `audio-notification`);
+    audio.setAttribute(`src`, `../assets/sounds/beep-notification.mp3`);
+    bodyElement.appendChild(audio);
 }
 
 function createRankingInfo(){

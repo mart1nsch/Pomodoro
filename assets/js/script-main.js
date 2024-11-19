@@ -37,12 +37,12 @@ function startFlow() {
         if ((finishTime - actualSecond) > 0) {
             const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);
             timeElement.innerText = timer.replace(":", " : ");
-            console.log(finishTime - actualSecond);
         } else {
             const timer = createDateFromMiliSeconds(0);
             timeElement.innerText = timer.replace(":", " : ");
 
             sendNotification("pause");
+            playSound();
             clearInterval(interval);
             if (automaticPause) {
                 setTimeout(function(){
@@ -77,8 +77,11 @@ function startPause() {
         if ((finishTime - actualSecond) > 0) {
             const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);
             timeElement.innerText = timer.replace(":", " : ");
-            console.log(finishTime - actualSecond);
         } else {
+            const timer = createDateFromMiliSeconds(0);
+            timeElement.innerText = timer.replace(":", " : ");
+
+            playSound();
             sendNotification("flow");
             clearInterval(interval);
             if (automaticPause) {

@@ -29,6 +29,11 @@ function returnMinutesToSeconds(number){
     return (number * 60);
 }
 
+function playSound() {
+    const audioElement = document.querySelector(`#audio-notification`);
+    audioElement.play();
+}
+
 function sendNotification(type){
     if (Notification.permission === "granted") {
         const message = assemblyMessage(type);
