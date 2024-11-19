@@ -15,27 +15,33 @@ document.addEventListener("click", function(e){
     }
 });
 
-function startFlow(){
+function startFlow() {
     timeElement.style.color = "black";
     hideButton(document.querySelector(".button-start"));
     showShutButton();
 
-    seconds = seconds ? seconds : secondsFlow;
-
-    const timer = createDateFromMiliSeconds(seconds * 1000);
-    timeElement.innerText = timer.replace(":", " : ");
+    const secondNow = Math.floor(Date.now() / 1000);
+    localStorage.setItem(`startTime`, secondNow);
+    localStorage.setItem(`finishTime`, secondNow + secondsFlow);
 
     const lineContainerElement = document.querySelector(".line-container");
     const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsFlow;
     
     animateLine("shut");
 
-    interval = setInterval(function(){
-        seconds--;
-        const timer = createDateFromMiliSeconds(seconds * 1000);
-        timeElement.innerText = timer.replace(":", " : ");
+    interval = setInterval(function() {
+        const actualSecond = Math.floor(Date.now() / 1000);
+        const finishTime = localStorage.getItem(`finishTime`);
         animateLine("flow", widthLine);
-        if (seconds === 0) {
+
+        if ((finishTime - actualSecond) > 0) {
+            const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);
+            timeElement.innerText = timer.replace(":", " : ");
+            console.log(finishTime - actualSecond);
+        } else {
+            const timer = createDateFromMiliSeconds(0);
+            timeElement.innerText = timer.replace(":", " : ");
+
             sendNotification("pause");
             clearInterval(interval);
             if (automaticPause) {
@@ -49,15 +55,14 @@ function startFlow(){
     }, 1000);
 }
 
-function startPause(){
+function startPause() {
     timeElement.style.color = "var(--color-time-pause)";
     hideButton(document.querySelector(".button-pause"));
     hideButton(document.querySelector(".button-shut"));
 
-    seconds = seconds ? seconds : secondsPause;
-
-    const timer = createDateFromMiliSeconds(seconds * 1000);
-    timeElement.innerText = timer.replace(":", " : ");
+    const secondNow = Math.floor(Date.now() / 1000);
+    localStorage.setItem(`startTime`, secondNow);
+    localStorage.setItem(`finishTime`, secondNow + secondsPause);
 
     const lineContainerElement = document.querySelector(".line-container");
     const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsPause;
@@ -65,11 +70,15 @@ function startPause(){
     animateLine("shut");
     
     interval = setInterval(function(){
-        seconds--;
-        const timer = createDateFromMiliSeconds(seconds * 1000);
-        timeElement.innerText = timer.replace(":", " : ");
-        animateLine("pause", widthLine);
-        if (seconds === 0) {
+        const actualSecond = Math.floor(Date.now() / 1000);
+        const finishTime = localStorage.getItem(`finishTime`);
+        animateLine("flow", widthLine);
+
+        if ((finishTime - actualSecond) > 0) {
+            const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);
+            timeElement.innerText = timer.replace(":", " : ");
+            console.log(finishTime - actualSecond);
+        } else {
             sendNotification("flow");
             clearInterval(interval);
             if (automaticPause) {
