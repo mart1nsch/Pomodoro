@@ -11,12 +11,12 @@
 }
 
 .container-timer .button-shut{
-    background-color: red;
-    color: white;
+    background-color: var(--color-red);
+    color: var(--color-white);
 }
 
 .container-timer button:active{
-    box-shadow: inset 5px 5px 20px rgb(0, 0, 0, 0.5);
+    box-shadow: inset 5px 5px 20px var(--color-button-active);
 }
 
 .line-container{
@@ -24,13 +24,13 @@
     height: 3px;
     margin-bottom: 2rem;
     overflow: hidden;
-    background-color: #f0f0f0;
+    background-color: var(--color-white-gray);
 }
 
 .line{
     width: 0;
     height: 2rem;
-    background-color: #000;
+    background-color: var(--color-black);
 }
 
 .container-ranking{
@@ -44,7 +44,7 @@
 
 .container-ranking h1{
     font-size: 38px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--color-black);
     margin-bottom: 15px;
 }
 
@@ -55,7 +55,7 @@
     align-items: center;
     font-weight: bold;
     font-size: 22px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--color-black);
 }
 
 .container-timer-buttons{
@@ -66,10 +66,10 @@
 }
 
 .button-pause{
-    background-color: rgb(255, 255, 83);
+    background-color: var(--color-yellow);
 }
 
 .button-start{
     background-color: var(--color-green);
-    color: white;
+    color: var(--color-white);
 }

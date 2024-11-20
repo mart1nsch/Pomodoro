@@ -16,7 +16,11 @@ document.addEventListener("click", function(e){
 });
 
 function startFlow() {
-    timeElement.style.color = "black";
+    if (nightMode) {
+        timeElement.style.color = "var(--color-white)";
+    } else {
+        timeElement.style.color = "var(--color-black)";
+    }
     hideButton(document.querySelector(".button-start"));
     showShutButton();
 
@@ -90,7 +94,11 @@ function startPause() {
 }
 
 function shutFlow(){
-    timeElement.style.color = "black";
+    if (nightMode) {
+        timeElement.style.color = "var(--color-white)";
+    } else {
+        timeElement.style.color = "var(--color-black)";
+    }
     clearInterval(interval);
     animateLine("shut");
 

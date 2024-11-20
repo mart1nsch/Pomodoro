@@ -5,7 +5,7 @@
     background-color: var(--color-green);
     padding: 20px;
     border-radius: 20px;
-    color: white;
+    color: var(--color-white);
     opacity: 0;
     animation: messageEnter 300ms ease-in-out;
 }

@@ -4,6 +4,14 @@
     --color-checkbox-checked: rgb(71, 69, 219);
     --color-time-pause: rgb(72, 219, 80);
     --color-green: rgb(57, 190, 57);
+    --color-black: rgb(0, 0, 0);
+    --color-white: rgb(255, 255, 255);
+    --color-red: rgb(255, 0, 0);
+    --color-white-gray: rgb(240, 240, 240);
+    --color-yellow: rgb(255, 255, 83);
+    --color-transparent: transparent;
+    --color-button-active: rgba(0, 0, 0, 0.3);
+    --color-black-gray: rgb(30, 30, 30);
 }
 
 *{
@@ -27,7 +35,7 @@ header{
     justify-content: space-between;
     align-items: center;
     margin: 10px auto;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--color-black);
 }
 
 header div{
@@ -41,7 +49,7 @@ header a{
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    color: black;
+    color: inherit;
 }
 
 header img{

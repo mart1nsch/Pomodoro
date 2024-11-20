@@ -28,7 +28,8 @@ function createLinksChild(divElement){
     divElement.appendChild(settings);
 
     const settingsImg = document.createElement("img");
-    settingsImg.src = "./assets/img/settings.png";
+    settingsImg.id = `img-settings`;
+    settingsImg.src = nightMode ? "./assets/img/settings-white.png" : "./assets/img/settings-black.png";
     settingsImg.alt = "Configurações";
     settings.appendChild(settingsImg);
 

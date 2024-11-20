@@ -2,6 +2,7 @@ let secondsFlow;
 let secondsPause;
 let secondsSpecialPause = 300;
 let automaticPause;
+let nightMode;
 let cyclesToday = 0;
 
 function addZeroLeft(number){
@@ -91,6 +92,7 @@ function getLocalStorageData(){
     secondsFlow = localStorage.getItem("secondsFlow");
     secondsPause = localStorage.getItem("secondsPause");
     automaticPause = JSON.parse(localStorage.getItem("automaticPause"));
+    nightMode = JSON.parse(localStorage.getItem("nightMode"));
 
     secondsFlow = secondsFlow ? secondsFlow : 1500;
     secondsPause = secondsPause ? secondsPause : 120;

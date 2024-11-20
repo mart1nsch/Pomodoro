@@ -20,7 +20,8 @@ function createReturn(divElement){
     divElement.appendChild(returnArrow);
 
     const returnArrowImg = document.createElement("img");
-    returnArrowImg.src = "./assets/img/return.png";
+    returnArrowImg.id = `img-return`;
+    returnArrowImg.src = nightMode ? "./assets/img/return-white.png" : "./assets/img/return-black.png";
     returnArrow.appendChild(returnArrowImg);
 }
 
@@ -28,6 +29,7 @@ function createLabelsAndInputs(divElement){
     createTime(divElement);
     createPause(divElement);
     createCheckPauseAutomatic(divElement);
+    createNightMode(divElement);
 }
 
 function createTime(divElement){
@@ -40,6 +42,7 @@ function createTime(divElement){
 
     const inputTime = document.createElement("input");
     inputTime.id = "input-time";
+    inputTime.setAttribute(`class`, `input-number`);
     inputTime.type = "number";
     inputTime.max = 60;
     inputTime.min = 5;
@@ -57,6 +60,7 @@ function createPause(divElement){
 
     const inputPause = document.createElement("input");
     inputPause.id = "input-pause";
+    inputPause.setAttribute(`class`, `input-number`);
     inputPause.type = "number";
     inputPause.max = 60;
     inputPause.min = 5;
@@ -107,6 +111,22 @@ function createButtons(divElement){
     const spanButtonSave = document.createElement("span");
     spanButtonSave.innerText = "Salvar Alterações";
     buttonSave.appendChild(spanButtonSave);
+}
+
+function createNightMode(divElement) {
+    const divNightMode = createDivInputs();
+    divElement.appendChild(divNightMode);
+
+    const labelNightMode = document.createElement("label");
+    labelNightMode.innerText = "Modo Noturno";
+    divNightMode.appendChild(labelNightMode);
+    
+    const inputNightMode = document.createElement("input");
+    inputNightMode.id = "input-night-mode";
+    inputNightMode.type = "checkbox";
+    inputNightMode.className = "checkbox";
+    inputNightMode.checked = nightMode;
+    divNightMode.appendChild(inputNightMode);
 }
 
 function returnMinutes(seconds){
