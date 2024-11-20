@@ -58,8 +58,8 @@ function startPause() {
     hideButton(document.querySelector(".button-shut"));
 
     const secondNow = Math.floor(Date.now() / 1000);
-    localStorage.setItem(`startTime`, secondNow);
-    localStorage.setItem(`finishTime`, secondNow + secondsPause);
+    localStorage.setItem(`startTime`, Number(secondNow));
+    localStorage.setItem(`finishTime`, Number(secondNow) + Number(secondsPause));
 
     animateLine("shut");
     
