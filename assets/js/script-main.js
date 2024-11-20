@@ -21,8 +21,8 @@ function startFlow() {
     showShutButton();
 
     const secondNow = Math.floor(Date.now() / 1000);
-    localStorage.setItem(`startTime`, secondNow);
-    localStorage.setItem(`finishTime`, secondNow + secondsFlow);
+    localStorage.setItem(`startTime`, Number(secondNow));
+    localStorage.setItem(`finishTime`, Number(secondNow) + Number(secondsFlow));
 
     const lineContainerElement = document.querySelector(".line-container");
     const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsFlow;
