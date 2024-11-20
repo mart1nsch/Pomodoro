@@ -8,11 +8,23 @@ function addZeroLeft(number){
     return number >= 10 ? number : `0${number}`;
 }
 
-function animateLine(type, width){
+function animateLine(type){
     const line = document.querySelector(".line");
 
     if (type === "flow" || type === "pause") {
-        line.style.width = `${Number(line.getBoundingClientRect().width) + width}px`;
+        const finishTime = Number(localStorage.getItem(`finishTime`));
+        const secondNow = Math.floor(Date.now() / 1000);
+        const secondsLeft = finishTime - secondNow;
+
+        if (secondsLeft < 0) {
+            line.style.width = `100%`;
+            return;
+        }
+
+        const percentageWidth = 100 - ((secondsLeft * 100) / (type === `flow` ? secondsFlow : secondsPause));
+
+        console.log(`percentageWidth: `, percentageWidth);
+        line.style.width = `${percentageWidth}%`;
     } else {
         line.style.width = 0;
     }

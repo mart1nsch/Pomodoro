@@ -24,15 +24,12 @@ function startFlow() {
     localStorage.setItem(`startTime`, Number(secondNow));
     localStorage.setItem(`finishTime`, Number(secondNow) + Number(secondsFlow));
 
-    const lineContainerElement = document.querySelector(".line-container");
-    const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsFlow;
-    
     animateLine("shut");
 
     interval = setInterval(function() {
         const actualSecond = Math.floor(Date.now() / 1000);
         const finishTime = localStorage.getItem(`finishTime`);
-        animateLine("flow", widthLine);
+        animateLine("flow");
 
         if ((finishTime - actualSecond) > 0) {
             const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);
@@ -64,15 +61,12 @@ function startPause() {
     localStorage.setItem(`startTime`, secondNow);
     localStorage.setItem(`finishTime`, secondNow + secondsPause);
 
-    const lineContainerElement = document.querySelector(".line-container");
-    const widthLine = Number(lineContainerElement.getBoundingClientRect().width) / secondsPause;
-
     animateLine("shut");
     
     interval = setInterval(function(){
         const actualSecond = Math.floor(Date.now() / 1000);
         const finishTime = localStorage.getItem(`finishTime`);
-        animateLine("flow", widthLine);
+        animateLine("flow");
 
         if ((finishTime - actualSecond) > 0) {
             const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);
