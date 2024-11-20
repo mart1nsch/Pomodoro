@@ -23,7 +23,6 @@ function animateLine(type){
 
         const percentageWidth = 100 - ((secondsLeft * 100) / (type === `flow` ? secondsFlow : secondsPause));
 
-        console.log(`percentageWidth: `, percentageWidth);
         line.style.width = `${percentageWidth}%`;
     } else {
         line.style.width = 0;
