@@ -74,6 +74,7 @@ function setColors(type) {
     const imgSettingsElement = document.querySelector(`#img-settings`);
     const lineElement = document.querySelector(`.line`);
     const lineContainerElement = document.querySelector(`.line-container`);
+    const timeElement = document.querySelector(`.time`);
 
     if (type === `night`) {
         bodyElement.style.backgroundColor = `var(--color-black)`;
@@ -94,6 +95,9 @@ function setColors(type) {
         imgSettingsElement.src = `./assets/img/settings-white.png`;
         lineElement.style.backgroundColor = `var(--color-white)`;
         lineContainerElement.style.backgroundColor = `var(--color-black-gray)`;
+        if (timeElement.style.color === `var(--color-black)`) {
+            timeElement.style.color = `var(--color-white)`;
+        }
     } else if (type === `day`) {
         bodyElement.style.backgroundColor = `var(--color-white)`;
         bodyElement.style.color = `var(--color-black)`;
@@ -113,6 +117,9 @@ function setColors(type) {
         imgSettingsElement.src = `./assets/img/settings-black.png`;
         lineElement.style.backgroundColor = `var(--color-black)`;
         lineContainerElement.style.backgroundColor = `var(--color-white-gray)`;
+        if (timeElement.style.color === `var(--color-white)`) {
+            timeElement.style.color = `var(--color-black)`;
+        }
     }
 }
 

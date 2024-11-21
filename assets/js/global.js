@@ -13,6 +13,7 @@ function animateLine(type){
     const line = document.querySelector(".line");
 
     if (type === "flow" || type === "pause") {
+        const startTime = Number(localStorage.getItem(`startTime`));
         const finishTime = Number(localStorage.getItem(`finishTime`));
         const secondNow = Math.floor(Date.now() / 1000);
         const secondsLeft = finishTime - secondNow;
@@ -22,7 +23,7 @@ function animateLine(type){
             return;
         }
 
-        const percentageWidth = 100 - ((secondsLeft * 100) / (type === `flow` ? secondsFlow : secondsPause));
+        const percentageWidth = 100 - ((secondsLeft * 100) / (finishTime - startTime));
 
         line.style.width = `${percentageWidth}%`;
     } else {
