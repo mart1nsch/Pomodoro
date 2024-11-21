@@ -46,6 +46,7 @@ function createTime(divElement){
     inputTime.type = "number";
     inputTime.max = 60;
     inputTime.min = 5;
+    inputTime.setAttribute(`title`, `Tempo mínimo é 1 minuto.`);
     inputTime.value = returnMinutes(secondsFlow);
     divTime.appendChild(inputTime);
 }
@@ -64,6 +65,7 @@ function createPause(divElement){
     inputPause.type = "number";
     inputPause.max = 60;
     inputPause.min = 5;
+    inputPause.setAttribute(`title`, `Tempo mínimo é 1 minuto.`);
     inputPause.value = returnMinutes(secondsPause);
     divPause.appendChild(inputPause);
 }
