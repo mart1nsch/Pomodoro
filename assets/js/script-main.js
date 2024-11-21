@@ -70,7 +70,7 @@ function startPause() {
     interval = setInterval(function(){
         const actualSecond = Math.floor(Date.now() / 1000);
         const finishTime = localStorage.getItem(`finishTime`);
-        animateLine("flow");
+        animateLine("pause");
 
         if ((finishTime - actualSecond) > 0) {
             const timer = createDateFromMiliSeconds((finishTime - actualSecond) * 1000);

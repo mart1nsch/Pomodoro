@@ -33,6 +33,7 @@ function createMain(){
     const audio = document.createElement(`audio`);
     audio.setAttribute(`id`, `audio-notification`);
     audio.setAttribute(`src`, `../assets/sounds/beep-notification.mp3`);
+    audio.setAttribute(`preload`, `auto`);
     bodyElement.appendChild(audio);
 }
 

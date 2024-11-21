@@ -42,8 +42,12 @@ function returnMinutesToSeconds(number){
 }
 
 function playSound() {
-    const audioElement = document.querySelector(`#audio-notification`);
-    audioElement.play();
+    try {
+        const audioElement = document.querySelector(`#audio-notification`);
+        audioElement.play();
+    } catch(e) {
+        console.log(`Erro audio: `, e);
+    }
 }
 
 function sendNotification(type){
